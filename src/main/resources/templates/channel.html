@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+	<head>
+		<title th:text="${channel.name}"></title>
+		<link rel="stylesheet" href="/css/channel.css"/>
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+		    var channelId = /*[[${channel.channelId}]]*/null;
+			var user = sessionStorage.getItem("user")
+			if (user == null) {
+				window.location.href = '/welcome'
+			} else {
+				user = JSON.parse(sessionStorage.getItem("user"))
+			}
+			/*]]>*/
+		</script>
+	</head>
+	<body>
+		<div class="message-container">
+		  <div th:each="message : ${messages}" th:inline="text">
+		  	<span class="timestamp">[[${message.user.name}]]: </span>
+		  	<span class="message">[[${message.text}]]</span>
+		  </div>
+		</div>
+		<div class="message-box">
+			<textarea rows="5" cols="50" id="messageBox"></textarea>
+		</div>
+		<script type="text/javascript" src="/js/channel.js"></script>
+	</body>
+</html>
